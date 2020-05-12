@@ -6,7 +6,17 @@ import pytest
 from pyassert import *
 
 URL = 'https://restful-booker.herokuapp.com/booking/{}'
-BOOKING = random.randrange(1, 10, 1)
+
+# Provides the list of currently existing bookings
+def existing_bookings():
+    url = 'https://restful-booker.herokuapp.com/booking'
+    response = (requests.get(url)).json()
+    for booking in response:
+        bookingids = jsonpath.jsonpath(response, '$.[bookingid]')
+    return list(bookingids)
+
+
+BOOKING = random.choice(existing_bookings())
 
 
 def get_booking(url, booking):
