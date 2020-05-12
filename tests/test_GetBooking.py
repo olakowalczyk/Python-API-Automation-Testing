@@ -1,5 +1,4 @@
 import requests
-import json
 import jsonpath
 import random
 from pyassert import *
@@ -13,9 +12,8 @@ def test_get_booking():
     response = requests.get(URL.format(BOOKING))
 
     # Tests
-    response_json = json.loads(response.text)
-    firstname = jsonpath.jsonpath(response_json, 'firstname')
-    depositpaid = jsonpath.jsonpath(response_json, 'depositpaid')
+    firstname = jsonpath.jsonpath(response.json(), '$.firstname')[0]
+    depositpaid = jsonpath.jsonpath(response.json(), '$.depositpaid')[0]
     assert_that(response.status_code).is_equal_to(200)
-    assert_that(firstname[0]).is_instance_of(str)
-    assert_that(depositpaid[0]).is_instance_of(bool)
+    assert_that(firstname).is_instance_of(str)
+    assert_that(depositpaid).is_instance_of(bool)

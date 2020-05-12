@@ -10,12 +10,11 @@ UPDATE = 'Edited'
 
 # GET Pre-request: Takes booking and its firstname, lastname
 get_response = requests.get(URL.format(BOOKING))
-get_response_json = json.loads(get_response.text)
-get_firstname = jsonpath.jsonpath(get_response_json, 'firstname')[0]
-get_lastname = jsonpath.jsonpath(get_response_json, 'lastname')[0]
+get_firstname = jsonpath.jsonpath(get_response.json(), '$.firstname')[0]
+get_lastname = jsonpath.jsonpath(get_response.json(), '$.lastname')[0]
 
 
-def test_update_booking(token):
+def test_partial_update_booking(token):
     # PATCH: Updates booking
     headers = {'Content-Type': 'application/json',
                'Cookie': 'token=' + str(token)}
@@ -27,9 +26,9 @@ def test_update_booking(token):
         BOOKING), data=patch_data, headers=headers)
 
     # Tests
-    patch_response_json = json.loads(patch_response.text)
-    patch_firstname = jsonpath.jsonpath(patch_response_json, 'firstname')[0]
-    patch_lastname = jsonpath.jsonpath(patch_response_json, 'lastname')[0]
+    patch_firstname = jsonpath.jsonpath(
+        patch_response.json(), '$.firstname')[0]
+    patch_lastname = jsonpath.jsonpath(patch_response.json(), '$.lastname')[0]
     patch_data_json = json.loads(patch_data)
     assert_that(patch_response.status_code).is_equal_to(200)
     assert_that(patch_firstname).is_not_equal_to(get_firstname)
