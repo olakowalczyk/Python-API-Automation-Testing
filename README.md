@@ -13,6 +13,7 @@ Run commands:
 cd "the_repo_folder_path"
 pip install pip
 pip install -r requirements.txt
+cd "tests"
 ```
 
 Run tests:
