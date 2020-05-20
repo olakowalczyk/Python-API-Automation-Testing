@@ -1,53 +1,38 @@
 import requests
 import json
-import jsonpath
-import random
 from pyassert import *
+from common.bookings import Bookings
 
 URL = 'https://restful-booker.herokuapp.com/booking/{}'
-
-# Provides the list of currently existing bookings
-def existing_bookings():
-    url = 'https://restful-booker.herokuapp.com/booking'
-    response = (requests.get(url)).json()
-    for booking in response:
-        bookingids = jsonpath.jsonpath(response, '$.[bookingid]')
-    return list(bookingids)
-
-
-BOOKING = random.choice(existing_bookings())
+BOOKING = Bookings.get_random_booking()
 UPDATE = 'Edited'
 
 # GET Pre-request: Takes booking and its firstname, lastname
 get_response = requests.get(URL.format(BOOKING))
-get_firstname = jsonpath.jsonpath(get_response.json(), '$.firstname')[0]
-get_lastname = jsonpath.jsonpath(get_response.json(), '$.lastname')[0]
+get_firstname = get_response.json()['firstname']
+get_lastname = get_response.json()['lastname']
 
 
 def test_partial_update_booking(token):
-    # PATCH: Updates booking
+    '''Checks whether partial update properly updates booking data'''
+    # PATCH request: Updates booking
     headers = {'Content-Type': 'application/json',
                'Cookie': 'token=' + str(token)}
     patch_data = json.dumps({
         "firstname": "{}".format(UPDATE),
         "lastname": "{}".format(UPDATE)
     })
+    patch_data_json = json.loads(patch_data)
     patch_response = requests.patch(URL.format(
         BOOKING), data=patch_data, headers=headers)
-
+    patch_firstname = patch_response.json()['firstname']
+    patch_lastname = patch_response.json()['lastname']
     # Tests
-    patch_firstname = jsonpath.jsonpath(
-        patch_response.json(), '$.firstname')[0]
-    patch_lastname = jsonpath.jsonpath(patch_response.json(), '$.lastname')[0]
-    patch_data_json = json.loads(patch_data)
     assert_that(patch_response.status_code).is_equal_to(200)
     assert_that(patch_firstname).is_not_equal_to(get_firstname)
     assert_that(patch_lastname).is_not_equal_to(get_lastname)
-    assert_that(patch_firstname).is_equal_to(
-        jsonpath.jsonpath(patch_data_json, 'firstname')[0])
-    assert_that(patch_lastname).is_equal_to(
-        jsonpath.jsonpath(patch_data_json, 'lastname')[0])
-
+    assert_that(patch_firstname).is_equal_to(patch_data_json['firstname'])
+    assert_that(patch_lastname).is_equal_to(patch_data_json['lastname'])
     # Cleans up
     cleaning_data = json.dumps({
         "firstname": "{}".format(get_firstname),
