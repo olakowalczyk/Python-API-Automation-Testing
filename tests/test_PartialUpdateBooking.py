@@ -3,12 +3,12 @@ import json
 from pyassert import *
 from common.bookings import Bookings
 
-URL = 'https://restful-booker.herokuapp.com/booking/{}'
+URL = f'{Bookings.URL}/booking/'
 BOOKING = Bookings.get_random_booking()
 UPDATE = 'Edited'
 
 # GET Pre-request: Takes booking and its firstname, lastname
-get_response = requests.get(URL.format(BOOKING))
+get_response = requests.get(URL+str(BOOKING))
 get_firstname = get_response.json()['firstname']
 get_lastname = get_response.json()['lastname']
 
@@ -23,8 +23,7 @@ def test_partial_update_booking(token):
         "lastname": "{}".format(UPDATE)
     })
     patch_data_json = json.loads(patch_data)
-    patch_response = requests.patch(URL.format(
-        BOOKING), data=patch_data, headers=headers)
+    patch_response = requests.patch(URL+str(BOOKING), data=patch_data, headers=headers)
     patch_firstname = patch_response.json()['firstname']
     patch_lastname = patch_response.json()['lastname']
     # Tests
@@ -38,5 +37,4 @@ def test_partial_update_booking(token):
         "firstname": "{}".format(get_firstname),
         "lastname": "{}".format(get_lastname)
     })
-    requests.patch(URL.format(
-        BOOKING), data=cleaning_data, headers=headers)
+    requests.patch(URL+str(BOOKING), data=cleaning_data, headers=headers)

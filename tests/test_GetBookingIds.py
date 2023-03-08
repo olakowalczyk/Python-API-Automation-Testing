@@ -1,7 +1,9 @@
 import requests
 from pyassert import *
 
-URL = 'https://restful-booker.herokuapp.com/booking'
+from common.bookings import Bookings
+
+URL = f'{Bookings.URL}/booking'
 
 
 def test_get_booking_ids():

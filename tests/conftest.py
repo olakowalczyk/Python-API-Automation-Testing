@@ -2,11 +2,12 @@ import json
 import pytest
 import requests
 
+from common.bookings import Bookings
 
 @pytest.fixture()
 def token():
     '''Returns token which will be used (as a fixture) in the test fucntions that require authentication'''
-    URL_AUTH = 'https://restful-booker.herokuapp.com/auth'
+    URL_AUTH = f'{Bookings.URL}/auth'
     headers = {'Content-Type': 'application/json'}
     data = json.dumps({
         'username': 'admin',

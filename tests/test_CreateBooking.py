@@ -2,7 +2,9 @@ import json
 import requests
 from pyassert import *
 
-URL = 'https://restful-booker.herokuapp.com/booking{}'
+from common.bookings import Bookings
+
+URL = f'{Bookings.URL}/booking'
 
 
 def test_create_booking():
@@ -20,7 +22,7 @@ def test_create_booking():
         },
         "additionalneeds": "Breakfast"
     })
-    response = requests.post(URL.format(''), data=data, headers=headers)
+    response = requests.post(URL, data=data, headers=headers)
     # Tests
     assert_that(response.status_code).is_equal_to(200)
     assert_that(response.json()['bookingid']).is_not_none()

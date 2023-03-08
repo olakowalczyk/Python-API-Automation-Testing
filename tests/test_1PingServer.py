@@ -2,8 +2,10 @@ import pytest
 import requests
 from pyassert import *
 
+from common.bookings import Bookings
 
-URL = 'https://restful-booker.herokuapp.com/ping'
+
+URL = f'{Bookings.URL}/ping'
 
 
 @pytest.mark.ping
