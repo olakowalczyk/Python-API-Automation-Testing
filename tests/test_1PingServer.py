@@ -5,7 +5,7 @@ from pyassert import *
 from common.bookings import Bookings
 
 
-URL = f'{Bookings.URL}/ping'
+URL = f'{Bookings.BASE_URL}/ping'
 
 
 @pytest.mark.ping

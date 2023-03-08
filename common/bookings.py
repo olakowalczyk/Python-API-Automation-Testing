@@ -4,7 +4,7 @@ import random
 
 class Bookings:
 
-    URL = "https://restful-booker.herokuapp.com"
+    BASE_URL = "https://restful-booker.herokuapp.com"
 
     @classmethod
     def get_random_booking(cls):
@@ -14,6 +14,6 @@ class Bookings:
     @staticmethod
     def get_existing_bookings():
         '''Provides the list of currently existing bookings'''
-        url = f'{Bookings.URL}/booking'
+        url = f'{Bookings.BASE_URL}/booking'
         response = (requests.get(url)).json()
         return [booking['bookingid'] for booking in response]

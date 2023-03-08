@@ -4,7 +4,7 @@ from pyassert import *
 
 from common.bookings import Bookings
 
-URL = f'{Bookings.URL}/booking'
+URL = f'{Bookings.BASE_URL}/booking'
 
 
 def test_create_booking():

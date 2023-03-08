@@ -3,7 +3,7 @@ import pytest
 from pyassert import *
 from common.bookings import Bookings
 
-URL = f'{Bookings.URL}/booking/'
+URL = f'{Bookings.BASE_URL}/booking/'
 BOOKING = Bookings.get_random_booking()
 
 # Pre-check: GET booking
