@@ -36,6 +36,12 @@ class HttpManager:
     
 
     @staticmethod
+    def patch(url, data):
+        response = requests.patch(url, data=data, headers=HttpManager.headers)
+        return response
+
+
+    @staticmethod
     def delete(url):
         response = requests.delete(url, headers=HttpManager.headers)
         return response

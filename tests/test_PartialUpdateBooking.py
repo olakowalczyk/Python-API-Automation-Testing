@@ -9,7 +9,7 @@ BOOKING = Bookings.get_random_booking()
 UPDATE = 'Edited'
 
 # GET Pre-request: Takes booking and its firstname, lastname
-get_response = requests.get(URL+str(BOOKING))
+get_response = HttpManager.get(URL+str(BOOKING))
 get_firstname = get_response.json()['firstname']
 get_lastname = get_response.json()['lastname']
 
@@ -23,7 +23,7 @@ def test_partial_update_booking():
         "lastname": "{}".format(UPDATE)
     })
     patch_data_json = json.loads(patch_data)
-    patch_response = HttpManager.patch(URL+str(BOOKING), data=patch_data, headers=HttpManager.headers)
+    patch_response = HttpManager.patch(URL+str(BOOKING), data=patch_data)
     patch_firstname = patch_response.json()['firstname']
     patch_lastname = patch_response.json()['lastname']
     # Tests
@@ -37,4 +37,4 @@ def test_partial_update_booking():
         "firstname": "{}".format(get_firstname),
         "lastname": "{}".format(get_lastname)
     })
-    HttpManager.patch(URL+str(BOOKING), data=cleaning_data, headers=HttpManager.headers)
+    HttpManager.patch(URL+str(BOOKING), data=cleaning_data)
