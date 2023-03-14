@@ -1,4 +1,3 @@
-import requests
 import json
 from pyassert import *
 
@@ -11,7 +10,7 @@ UPDATE = 'Edited'
 
 
 # GET Pre-request: Takes booking and its firstname
-get_response = requests.get(URL+str(BOOKING))
+get_response = HttpManager.get(URL+str(BOOKING))
 get_firstname = get_response.json()['firstname']
 
 

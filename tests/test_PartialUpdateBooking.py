@@ -1,4 +1,3 @@
-import requests
 import json
 from pyassert import *
 
@@ -24,7 +23,7 @@ def test_partial_update_booking():
         "lastname": "{}".format(UPDATE)
     })
     patch_data_json = json.loads(patch_data)
-    patch_response = requests.patch(URL+str(BOOKING), data=patch_data, headers=HttpManager.headers)
+    patch_response = HttpManager.patch(URL+str(BOOKING), data=patch_data, headers=HttpManager.headers)
     patch_firstname = patch_response.json()['firstname']
     patch_lastname = patch_response.json()['lastname']
     # Tests
@@ -38,4 +37,4 @@ def test_partial_update_booking():
         "firstname": "{}".format(get_firstname),
         "lastname": "{}".format(get_lastname)
     })
-    requests.patch(URL+str(BOOKING), data=cleaning_data, headers=HttpManager.headers)
+    HttpManager.patch(URL+str(BOOKING), data=cleaning_data, headers=HttpManager.headers)

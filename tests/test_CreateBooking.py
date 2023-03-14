@@ -1,5 +1,4 @@
 import json
-import requests
 from pyassert import *
 
 from utils.http_manager import HttpManager
@@ -26,7 +25,7 @@ def test_create_booking():
     assert_that(response.status_code).is_equal_to(200)
     assert_that(response.json()['bookingid']).is_not_none()
     assert_that(response.json()['booking']).is_not_none()
-    assert_that((requests.get(f'{Bookings.BASE_URL}/booking'.format(
+    assert_that((HttpManager.get(f'{Bookings.BASE_URL}/booking'.format(
         '/' + str(response.json()['bookingid'])))).status_code).is_equal_to(200)
     # Cleans up
-    requests.delete(f'{Bookings.BASE_URL}'.format('/' + str(response.json()['bookingid'])))
+    HttpManager.delete(f'{Bookings.BASE_URL}'.format('/' + str(response.json()['bookingid'])))
