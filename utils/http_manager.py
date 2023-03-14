@@ -33,3 +33,10 @@ class HttpManager:
     def put(url, data):
         response = requests.put(url, data=data, headers=HttpManager.headers)
         return response
+    
+
+    @staticmethod
+    def delete(url):
+        response = requests.delete(url, headers=HttpManager.headers)
+        return response
+    
