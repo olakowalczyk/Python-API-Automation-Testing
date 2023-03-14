@@ -11,5 +11,5 @@ def token():
     in the test functions that require authentication
     """
     HttpManager.auth(f'{Bookings.BASE_URL}/auth', 'admin', 'password123')
-    return HttpManager.headers["Cookie"]
+    return HttpManager.headers["Cookie"].split('=')[1]
 

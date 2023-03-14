@@ -1,6 +1,8 @@
 import requests
 import json
 from pyassert import *
+
+from utils.http_manager import HttpManager
 from common.bookings import Bookings
 
 URL = f'{Bookings.BASE_URL}/booking/'
@@ -13,17 +15,16 @@ get_firstname = get_response.json()['firstname']
 get_lastname = get_response.json()['lastname']
 
 
-def test_partial_update_booking(token):
-    '''Checks whether partial update properly updates booking data'''
-    # PATCH request: Updates booking
-    headers = {'Content-Type': 'application/json',
-               'Cookie': 'token=' + str(token)}
+def test_partial_update_booking():
+    """
+    Checks whether partial update properly updates booking data
+    """
     patch_data = json.dumps({
         "firstname": "{}".format(UPDATE),
         "lastname": "{}".format(UPDATE)
     })
     patch_data_json = json.loads(patch_data)
-    patch_response = requests.patch(URL+str(BOOKING), data=patch_data, headers=headers)
+    patch_response = requests.patch(URL+str(BOOKING), data=patch_data, headers=HttpManager.headers)
     patch_firstname = patch_response.json()['firstname']
     patch_lastname = patch_response.json()['lastname']
     # Tests
@@ -37,4 +38,4 @@ def test_partial_update_booking(token):
         "firstname": "{}".format(get_firstname),
         "lastname": "{}".format(get_lastname)
     })
-    requests.patch(URL+str(BOOKING), data=cleaning_data, headers=headers)
+    requests.patch(URL+str(BOOKING), data=cleaning_data, headers=HttpManager.headers)

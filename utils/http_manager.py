@@ -13,11 +13,23 @@ class HttpManager:
     })
         response = requests.post(url, headers=HttpManager.headers, data=data)
         response_json = json.loads(response.text)
-        HttpManager.headers['Cookie'] = response_json['token']
+        HttpManager.headers['Cookie'] = 'token=' + response_json['token']
         return response
     
 
     @staticmethod
     def get(url):
         response = requests.get(url, headers=HttpManager.headers)
+        return response
+
+
+    @staticmethod
+    def post(url, data):
+        response = requests.post(url, data=data, headers=HttpManager.headers)
+        return response
+    
+
+    @staticmethod
+    def put(url, data):
+        response = requests.put(url, data=data, headers=HttpManager.headers)
         return response

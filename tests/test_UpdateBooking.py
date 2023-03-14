@@ -1,6 +1,8 @@
 import requests
 import json
 from pyassert import *
+
+from utils.http_manager import HttpManager
 from common.bookings import Bookings
 
 URL = f'{Bookings.BASE_URL}/booking/'
@@ -13,11 +15,10 @@ get_response = requests.get(URL+str(BOOKING))
 get_firstname = get_response.json()['firstname']
 
 
-def test_update_booking(token):
-    '''Checks whether update properly updates booking data'''
-    # PUT request: Updates booking
-    headers = {'Content-Type': 'application/json',
-               'Cookie': 'token=' + str(token)}
+def test_update_booking():
+    """
+    Checks whether update properly updates booking data
+    """
     put_data = json.dumps({
         "firstname": "{}".format(UPDATE),
         "lastname": "Brown",
@@ -29,10 +30,9 @@ def test_update_booking(token):
         },
         "additionalneeds": "Breakfast"
     })
-    put_response = requests.put(URL+str(BOOKING), data=put_data, headers=headers)
+    put_response = HttpManager.put(URL+str(BOOKING), data=put_data)
     put_firstname = put_response.json()['firstname']
     put_data_json = json.loads(put_data)
-    # Tests
     assert_that(put_response.status_code).is_equal_to(200)
     assert_that(put_firstname).is_not_equal_to(get_firstname)
     assert_that(put_firstname).is_equal_to(put_data_json['firstname'])
@@ -48,5 +48,4 @@ def test_update_booking(token):
         },
         "additionalneeds": "Breakfast"
     })
-    requests.put(URL.format(
-        BOOKING), data=cleaning_up_data, headers=headers)
+    HttpManager.put(URL.format(BOOKING), data=cleaning_up_data)

@@ -1,4 +1,3 @@
-import requests
 from pyassert import *
 
 from utils.http_manager import HttpManager

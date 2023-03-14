@@ -2,15 +2,14 @@ import json
 import requests
 from pyassert import *
 
+from utils.http_manager import HttpManager
 from common.bookings import Bookings
-
-URL = f'{Bookings.BASE_URL}/booking'
 
 
 def test_create_booking():
-    '''Checks whether new booking is properly created'''
-    # POST Request: Creates booking
-    headers = {'Content-Type': 'application/json'}
+    """
+    Checks whether new booking is properly created
+    """
     data = json.dumps({
         "firstname": "Jim",
         "lastname": "Brown",
@@ -22,12 +21,12 @@ def test_create_booking():
         },
         "additionalneeds": "Breakfast"
     })
-    response = requests.post(URL, data=data, headers=headers)
-    # Tests
+    response = HttpManager.post(f'{Bookings.BASE_URL}/booking', data)
+
     assert_that(response.status_code).is_equal_to(200)
     assert_that(response.json()['bookingid']).is_not_none()
     assert_that(response.json()['booking']).is_not_none()
-    assert_that((requests.get(URL.format(
+    assert_that((requests.get(f'{Bookings.BASE_URL}/booking'.format(
         '/' + str(response.json()['bookingid'])))).status_code).is_equal_to(200)
     # Cleans up
-    requests.delete(URL.format('/' + str(response.json()['bookingid'])))
+    requests.delete(f'{Bookings.BASE_URL}'.format('/' + str(response.json()['bookingid'])))
