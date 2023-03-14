@@ -1,15 +1,14 @@
 import pytest
-import requests
 from pyassert import *
 
+from utils.http_manager import HttpManager
 from common.bookings import Bookings
-
-
-URL = f'{Bookings.BASE_URL}/ping'
 
 
 @pytest.mark.ping
 def test_ping_server():
-    '''Checks whether server is running'''
-    response = requests.get(URL)
+    """
+    Checks whether server is running
+    """
+    response = HttpManager.get(f'{Bookings.BASE_URL}/ping')
     assert_that(response.status_code).is_equal_to(201)
