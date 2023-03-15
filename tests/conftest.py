@@ -5,7 +5,7 @@ from common.bookings import Bookings
 from utils.http_manager import HttpManager
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def token():
     """
     Returns token which will be used (as a fixture) 
@@ -17,7 +17,7 @@ def token():
 
 @pytest.fixture()
 def json_for_create_booking():
-    data = {
+    return json.dumps({
         "firstname": "Jim",
         "lastname": "Brown",
         "totalprice": 111,
@@ -27,22 +27,20 @@ def json_for_create_booking():
             "checkout": "2019-01-01"
         },
         "additionalneeds": "Breakfast"
-    }
-    return json.dumps(data)
+    })
 
 
 @pytest.fixture()
 def json_for_patch_booking():
-    data = {
+    return json.dumps({
         "firstname": "{}".format('Edited'),
         "lastname": "{}".format('Edited')
-    }
-    return json.dumps(data)
+    })
 
 
 @pytest.fixture()
 def json_for_update_booking():
-    data = {
+    return json.dumps({
         "firstname": "Edited",
         "lastname": "Brown",
         "totalprice": 111,
@@ -52,5 +50,4 @@ def json_for_update_booking():
             "checkout": "2019-01-01"
         },
         "additionalneeds": "Breakfast"
-    }
-    return json.dumps(data)
+    })
