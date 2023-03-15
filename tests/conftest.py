@@ -29,3 +29,12 @@ def json_for_create_booking():
         "additionalneeds": "Breakfast"
     }
     return json.dumps(data)
+
+
+@pytest.fixture()
+def json_for_patch_booking():
+    data = {
+        "firstname": "{}".format('Edited'),
+        "lastname": "{}".format('Edited')
+    }
+    return json.dumps(data)
