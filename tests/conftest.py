@@ -38,3 +38,19 @@ def json_for_patch_booking():
         "lastname": "{}".format('Edited')
     }
     return json.dumps(data)
+
+
+@pytest.fixture()
+def json_for_update_booking():
+    data = {
+        "firstname": "Edited",
+        "lastname": "Brown",
+        "totalprice": 111,
+        "depositpaid": True,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+        "additionalneeds": "Breakfast"
+    }
+    return json.dumps(data)

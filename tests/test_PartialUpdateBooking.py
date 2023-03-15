@@ -6,7 +6,6 @@ from common.bookings import Bookings
 
 URL = f'{Bookings.BASE_URL}/booking/'
 BOOKING = Bookings.get_random_booking()
-UPDATE = 'Edited'
 
 # GET Pre-request: Takes booking and its firstname, lastname
 get_response = HttpManager.get(URL+str(BOOKING))
