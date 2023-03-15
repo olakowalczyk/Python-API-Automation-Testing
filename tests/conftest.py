@@ -1,4 +1,5 @@
 import pytest
+import json
 
 from common.bookings import Bookings
 from utils.http_manager import HttpManager
@@ -13,3 +14,18 @@ def token():
     HttpManager.auth(f'{Bookings.BASE_URL}/auth', 'admin', 'password123')
     return HttpManager.headers["Cookie"].split('=')[1]
 
+
+@pytest.fixture()
+def json_for_create_booking():
+    data = {
+        "firstname": "Jim",
+        "lastname": "Brown",
+        "totalprice": 111,
+        "depositpaid": True,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+        "additionalneeds": "Breakfast"
+    }
+    return json.dumps(data)
