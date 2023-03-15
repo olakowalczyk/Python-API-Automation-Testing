@@ -37,18 +37,3 @@ def json_for_create_booking():
         },
         "additionalneeds": "Breakfast"
     })
-
-
-@pytest.fixture()
-def json_for_update_booking():
-    return json.dumps({
-        "firstname": "Edited",
-        "lastname": "Brown",
-        "totalprice": 111,
-        "depositpaid": True,
-        "bookingdates": {
-            "checkin": "2018-01-01",
-            "checkout": "2019-01-01"
-        },
-        "additionalneeds": "Breakfast"
-    })
