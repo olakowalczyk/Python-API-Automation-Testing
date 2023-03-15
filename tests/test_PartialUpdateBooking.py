@@ -14,7 +14,7 @@ get_firstname = get_response.json()['firstname']
 get_lastname = get_response.json()['lastname']
 
 
-def test_partial_update_booking():
+def test_partial_update_booking(token):
     """
     Checks whether partial update properly updates booking data
     """

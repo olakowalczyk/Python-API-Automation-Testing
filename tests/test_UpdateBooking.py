@@ -14,7 +14,7 @@ get_response = HttpManager.get(URL+str(BOOKING))
 get_firstname = get_response.json()['firstname']
 
 
-def test_update_booking():
+def test_update_booking(token):
     """
     Checks whether update properly updates booking data
     """
