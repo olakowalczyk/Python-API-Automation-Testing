@@ -16,6 +16,15 @@ def token():
 
 
 @pytest.fixture()
+def existing_booking(): 
+    url = f'{Bookings.BASE_URL}/booking/'
+    booking_id = Bookings.get_random_booking()
+    booking_url = url+str(booking_id)
+    get_response = HttpManager.get(booking_url)
+    return booking_url, get_response
+
+
+@pytest.fixture()
 def json_for_create_booking():
     return json.dumps({
         "firstname": "Jim",
@@ -27,14 +36,6 @@ def json_for_create_booking():
             "checkout": "2019-01-01"
         },
         "additionalneeds": "Breakfast"
-    })
-
-
-@pytest.fixture()
-def json_for_patch_booking():
-    return json.dumps({
-        "firstname": "{}".format('Edited'),
-        "lastname": "{}".format('Edited')
     })
 
 
