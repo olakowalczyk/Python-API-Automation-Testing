@@ -18,10 +18,8 @@ def token():
 @pytest.fixture()
 def existing_booking(): 
     url = f'{Bookings.BASE_URL}/booking/'
-    booking_id = Bookings.get_random_booking()
-    booking_url = url+str(booking_id)
-    get_response = HttpManager.get(booking_url)
-    return booking_url, get_response
+    booking_id = str(Bookings.get_random_booking())
+    return url + booking_id
 
 
 @pytest.fixture()

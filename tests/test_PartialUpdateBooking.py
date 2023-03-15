@@ -17,7 +17,7 @@ def test_partial_update_booking(token, existing_booking, json_for_patch_booking)
     """
     Checks whether partial update properly updates booking data
     """
-    booking_url, _ = existing_booking
+    booking_url = existing_booking
     response = HttpManager.patch(booking_url, data=json_for_patch_booking)
     assert_that(response.status_code).is_equal_to(200)
     assert_that(response.json()['firstname']).is_equal_to(json.loads(json_for_patch_booking)['firstname'])
