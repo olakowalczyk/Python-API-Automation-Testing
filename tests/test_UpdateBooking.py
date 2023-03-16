@@ -20,12 +20,11 @@ def json_for_update_booking():
     })
 
 
-def test_update_booking(token, existing_booking, json_for_update_booking):
+def test_update_booking(token, existing_booking_url, json_for_update_booking):
     """
     Checks whether update properly updates booking data
     """
-    booking_url = existing_booking
-    response = HttpManager.put(booking_url, data=json_for_update_booking)
+    response = HttpManager.put(existing_booking_url, data=json_for_update_booking)
     assert_that(response.status_code).is_equal_to(200)
     assert_that(response.json()['firstname']).is_equal_to(json.loads(json_for_update_booking)['firstname'])
 
