@@ -8,7 +8,7 @@ def test_get_booking():
     """
     Checks whether booking with given id is returned
     """
-    response = HttpManager.get(f'{Bookings.BASE_URL}/booking/' + str(Bookings.get_random_booking()))
+    response = HttpManager.get(Bookings.GET_BOOKING.format(Bookings.get_random_booking()))
     assert_that(response.status_code).is_equal_to(200)
     assert_that(response.json()['firstname']).is_instance_of(str)
     assert_that(response.json()['depositpaid']).is_instance_of(bool)

@@ -11,15 +11,14 @@ def token():
     Returns token which will be used (as a fixture) 
     in the test functions that require authentication
     """
-    HttpManager.auth(f'{Bookings.BASE_URL}/auth', 'admin', 'password123')
+    HttpManager.auth(Bookings.AUTH, 'admin', 'password123')
     return HttpManager.headers["Cookie"].split('=')[1]
 
 
 @pytest.fixture()
 def existing_booking(): 
-    url = f'{Bookings.BASE_URL}/booking/'
     booking_id = str(Bookings.get_random_booking())
-    return url + booking_id
+    return Bookings.GET_BOOKINGS + booking_id
 
 
 @pytest.fixture()

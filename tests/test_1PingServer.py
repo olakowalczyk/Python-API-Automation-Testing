@@ -10,5 +10,5 @@ def test_ping_server():
     """
     Checks whether server is running
     """
-    response = HttpManager.get(f'{Bookings.BASE_URL}/ping')
+    response = HttpManager.get(Bookings.PING)
     assert_that(response.status_code).is_equal_to(201)
