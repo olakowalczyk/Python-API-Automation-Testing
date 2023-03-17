@@ -1,7 +1,7 @@
 from pyassert import *
 
 from utils.http_manager import HttpManager
-from common.bookings import Bookings
+from api.bookings import Bookings
 
 
 class TestGet:

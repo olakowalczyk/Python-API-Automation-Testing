@@ -1,7 +1,7 @@
 import pytest
 import json
 
-from common.bookings import Bookings
+from api.bookings import Bookings
 from utils.http_manager import HttpManager
 
 

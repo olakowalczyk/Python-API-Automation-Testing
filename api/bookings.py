@@ -4,6 +4,7 @@ from utils.http_manager import HttpManager
 
 class Bookings:
 
+
     BASE_URL = "https://restful-booker.herokuapp.com"
     PING = BASE_URL + "/ping"
     AUTH = BASE_URL + "/auth"
@@ -12,10 +13,12 @@ class Bookings:
     CREATE_BOOKING = BASE_URL + "/booking"
     DELETE_BOOKING = BASE_URL + "/booking/{0}"
 
+
     @staticmethod
     def get_random_booking() -> str :
         '''Chooses one booking from the list of currently existing ones'''
         return str(random.choice(Bookings.get_existing_booking_ids()))
+
 
     @staticmethod
     def get_existing_booking_ids() -> list : 
