@@ -14,7 +14,7 @@ def response(json_for_create_booking):
 
 class TestPost:
 
-    def test_create_booking(self, response, json_for_create_booking):
+    def test_create_booking(self, response):
         """
         Checks whether new booking is properly created
         """
