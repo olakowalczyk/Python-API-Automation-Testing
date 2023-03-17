@@ -2,21 +2,16 @@
 
 This is a project for testing API using Python requests library.
 
-### Prerequisites
-In order to run these tests **Python 3** are needed
 
 ### Run project
-Get clone from this repo.
-Open cmd.
-Run commands:
 ```
-cd "the_repo_folder_path"
+cd 'the_repo_folder_path'
 pip install pip
 pip install -r requirements.txt
-cd "tests"
+cd 'tests'
 ```
 
-Run tests:
+### Run tests
 * Just for run all of the tests put:
 ```
 pytest
@@ -25,7 +20,7 @@ pytest
 ```
 pytest --html=report.html
 ```
-* For run pretests:
+* For run pre-tests:
 ```
 pytest -k ping
 ```
