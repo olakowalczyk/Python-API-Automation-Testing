@@ -4,15 +4,17 @@ from pyassert import *
 from utils.http_manager import HttpManager
 from common.bookings import Bookings
 
+
+@pytest.fixture()
+def booking_id():
+    booking_id = Bookings.get_random_booking()
+    assert HttpManager.get(Bookings.GET_BOOKING.format(booking_id)).status_code == 200, 'Setup Get pre-request failed'
+    return booking_id
+
 class TestDelete:
     
-    booking_id = str(Bookings.get_random_booking())
-
-    # Pre-check: GET booking
-    if HttpManager.get(Bookings.GET_BOOKING.format(booking_id)).status_code == 200:
-        # Expected to fail because DELETE returns '201 Created' response instead of '200 OK'
         @pytest.mark.xfail()
-        def test_delete_booking(self):
+        def test_delete_booking(self, booking_id):
             """
             Checks whether booking is properly deleted
             """
@@ -20,5 +22,3 @@ class TestDelete:
             assert_that(response.status_code).is_equal_to(200)
             assert_that(HttpManager.get(Bookings.GET_BOOKING.format(booking_id)
                                     ).status_code).is_equal_to(404)
-    else:
-        raise Exception('GET pre-request failed')
