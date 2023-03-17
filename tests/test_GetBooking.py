@@ -4,7 +4,7 @@ from utils.http_manager import HttpManager
 from api.bookings import Bookings
 
 
-class TestGet:
+class GetTests:
 
     def test_get_booking(self):
         """

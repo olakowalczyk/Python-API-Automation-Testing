@@ -1,11 +1,11 @@
-import pytest
+from pytest import fixture
 import json
 from pyassert import *
 
 from utils.http_manager import HttpManager
 
 
-@pytest.fixture()
+@fixture()
 def json_for_update_booking():
     return json.dumps({
         "firstname": "Edited",
@@ -19,7 +19,7 @@ def json_for_update_booking():
         "additionalneeds": "Breakfast"
     })
 
-class TestPut:
+class PutTests:
 
     def test_update_booking(self, existing_booking_url, json_for_update_booking):
         """

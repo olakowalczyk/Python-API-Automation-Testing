@@ -1,13 +1,13 @@
-import pytest
+from pytest import mark
 from pyassert import *
 
 from utils.http_manager import HttpManager
 from api.bookings import Bookings
 
 
-class TestServer:
+class ServerTests:
 
-    @pytest.mark.ping
+    @mark.ping
     def test_ping_server(self):
         """
         Checks whether server is running

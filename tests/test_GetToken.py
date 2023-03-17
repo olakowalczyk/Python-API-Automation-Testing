@@ -1,6 +1,6 @@
 from pyassert import *
 
-class TestToken:
+class TokenTests:
     
     def test_get_auth_token(self, token):
         """

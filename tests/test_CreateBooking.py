@@ -1,18 +1,18 @@
-import pytest
+from pytest import fixture
 from pyassert import *
 
 from utils.http_manager import HttpManager
 from api.bookings import Bookings
 
 
-@pytest.fixture()
+@fixture()
 def response(json_for_create_booking):
     response = HttpManager.post(Bookings.CREATE_BOOKING, json_for_create_booking)
     yield response
     HttpManager.delete(Bookings.DELETE_BOOKING.format(response.json()['bookingid']))
 
 
-class TestPost:
+class PostTests:
 
     def test_create_booking(self, response):
         """
