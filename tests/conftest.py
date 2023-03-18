@@ -5,7 +5,7 @@ from api.bookings import Bookings
 from utils.http_manager import HttpManager
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def token() -> str:
     """
     Returns token which will be used in the test functions 
