@@ -1,8 +1,24 @@
 from pytest import fixture
+import json
 from pyassert import *
 
 from utils.http_manager import HttpManager
 from api.bookings import Bookings
+
+
+@fixture()
+def json_for_create_booking() -> str:
+    return json.dumps({
+        "firstname": "Jim",
+        "lastname": "Brown",
+        "totalprice": 111,
+        "depositpaid": True,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+        "additionalneeds": "Breakfast"
+    })
 
 
 @fixture()
