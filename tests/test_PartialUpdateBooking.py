@@ -8,8 +8,8 @@ from utils.http_manager import HttpManager
 @fixture()
 def json_for_patch_booking():
     return json.dumps({
-        "firstname": "{}".format('Edited'),
-        "lastname": "{}".format('Edited')
+        "firstname": "Edited",
+        "lastname": "Edited"
     })
 
 
