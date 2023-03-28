@@ -6,25 +6,17 @@ from utils.http_manager import HttpManager
 
 
 @fixture()
-def json_for_update_booking():
-    return json.dumps({
-        "firstname": "Edited",
-        "lastname": "Brown",
-        "totalprice": 111,
-        "depositpaid": True,
-        "bookingdates": {
-            "checkin": "2018-01-01",
-            "checkout": "2019-01-01"
-        },
-        "additionalneeds": "Breakfast"
-    })
+def test_data() -> str:
+    with open('test_data/update_booking.json') as data_file:
+        data = data_file.read()
+        return data
 
 class PutTests:
 
-    def test_update_booking(self, existing_booking_url, json_for_update_booking):
+    def test_update_booking(self, existing_booking_url, test_data):
         """
         Checks whether update properly updates booking data
         """
-        response = HttpManager.put(existing_booking_url, data=json_for_update_booking)
+        response = HttpManager.put(existing_booking_url, data=test_data)
         assert_that(response.status_code).is_equal_to(200)
-        assert_that(response.json()['firstname']).is_equal_to(json.loads(json_for_update_booking)['firstname'])
+        assert_that(response.json()['firstname']).is_equal_to(json.loads(test_data)['firstname'])
