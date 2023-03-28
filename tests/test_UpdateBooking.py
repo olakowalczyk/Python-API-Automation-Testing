@@ -1,4 +1,3 @@
-from pytest import fixture
 import json
 from pyassert import *
 

@@ -20,5 +20,4 @@ class GetTests:
         """
         response = HttpManager.get(Bookings.GET_BOOKINGS)
         assert_that(response.status_code).is_equal_to(200)
-
-        
+       
