@@ -1,5 +1,4 @@
 from pytest import fixture
-import json
 from pyassert import *
 
 from utils.http_manager import HttpManager
@@ -7,23 +6,15 @@ from api.bookings import Bookings
 
 
 @fixture()
-def json_for_create_booking() -> str:
-    return json.dumps({
-        "firstname": "Jim",
-        "lastname": "Brown",
-        "totalprice": 111,
-        "depositpaid": True,
-        "bookingdates": {
-            "checkin": "2018-01-01",
-            "checkout": "2019-01-01"
-        },
-        "additionalneeds": "Breakfast"
-    })
+def test_data() -> str:
+    with open('test_data/create_booking.json') as data_file:
+        data = data_file.read()
+        return data
 
 
 @fixture()
-def response(json_for_create_booking):
-    response = HttpManager.post(Bookings.CREATE_BOOKING, json_for_create_booking)
+def response(test_data):
+    response = HttpManager.post(Bookings.CREATE_BOOKING, test_data)
     yield response
     HttpManager.delete(Bookings.DELETE_BOOKING.format(response.json()['bookingid']))
 
