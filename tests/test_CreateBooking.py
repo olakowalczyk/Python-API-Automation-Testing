@@ -6,15 +6,9 @@ from api.bookings import Bookings
 
 
 @fixture()
-def test_data() -> str:
-    with open('test_data/create_booking.json') as data_file:
-        data = data_file.read()
-        return data
-
-
-@fixture()
 def response(test_data):
-    response = HttpManager.post(Bookings.CREATE_BOOKING, test_data)
+    data = test_data('test_data/create_booking.json')
+    response = HttpManager.post(Bookings.CREATE_BOOKING, data)
     yield response
     HttpManager.delete(Bookings.DELETE_BOOKING.format(response.json()['bookingid']))
 

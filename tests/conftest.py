@@ -18,3 +18,12 @@ def token() -> str:
 def existing_booking_url() -> str: 
     booking_id = Bookings.get_random_booking()
     return Bookings.GET_BOOKINGS + booking_id
+
+
+@fixture()
+def test_data():
+    def _test_data(data_path):
+        with open(data_path) as data_file:
+            data = data_file.read()
+            return data
+    return _test_data
